@@ -75,24 +75,12 @@ public class TennisGame1 implements TennisGame {
 
     private String determineDrawScore() {
         final int drawPoints = this.m_score1;
-        String score;
-        switch (drawPoints)
-        {
-            case 0:
-                score = "Love-All";
-                break;
-            case 1:
-                score = "Fifteen-All";
-                break;
-            case 2:
-                score = "Thirty-All";
-                break;
-            default:
-                score = "Deuce";
-                break;
-
-        }
-        return score;
+        return switch (drawPoints) {
+            case 0 -> "Love-All";
+            case 1 -> "Fifteen-All";
+            case 2 -> "Thirty-All";
+            default -> "Deuce";
+        };
     }
 
     private boolean hasAnyPointsAbove(int points) {
