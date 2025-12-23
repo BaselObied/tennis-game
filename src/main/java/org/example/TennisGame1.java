@@ -25,20 +25,14 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        String score = "";
         if (isDraw()) {
             scoreResolver = new DrawScoreResolverStrategy(this.player1Points);
-            score = scoreResolver.resolve();
-        } else if (hasAnyPointsAbove(ADVANTAGE_THRESHOLD))
-        {
+        } else if (hasAnyPointsAbove(ADVANTAGE_THRESHOLD)) {
             scoreResolver = new HighScoreResolverStrategy(this.player1Points, this.player2Points);
-            score = scoreResolver.resolve();
-        } else
-        {
+        } else {
             scoreResolver = new LowScoreResolverStrategy(this.player1Points, this.player2Points);
-            score = scoreResolver.resolve();
         }
-        return score;
+        return scoreResolver.resolve();
     }
 
     private boolean hasAnyPointsAbove(int points) {
