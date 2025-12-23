@@ -1,7 +1,7 @@
 package org.example;
 
 public class DrawScoreResolverStrategy implements ScoreResolver {
-    private int drawPoints;
+    private final int drawPoints;
 
     public DrawScoreResolverStrategy(int drawPoints) {
         this.drawPoints = drawPoints;
