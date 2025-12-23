@@ -7,6 +7,7 @@ public class TennisGame1 implements TennisGame {
     private int m_score2 = 0;
     private String player1Name;
     private String player2Name;
+    private final int ADVANTAGE_THRESHOLD = 3;
 
     public TennisGame1(String player1Name, String player2Name) {
         this.player1Name = player1Name;
@@ -26,7 +27,7 @@ public class TennisGame1 implements TennisGame {
         {
             score = determineDrawScore();
         }
-        else if (hasAnyPointsAbove(3))
+        else if (hasAnyPointsAbove(ADVANTAGE_THRESHOLD))
         {
             score = determineScoreAbove();
         }
@@ -38,29 +39,32 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String determineScoreBelow() {
-        int tempScore;
-        String score = "";
-        for (int i = 1; i<3; i++)
-        {
-            if (i==1) tempScore = m_score1;
-            else { score +="-"; tempScore = m_score2;}
-            switch(tempScore)
-            {
-                case 0:
-                    score +="Love";
-                    break;
-                case 1:
-                    score +="Fifteen";
-                    break;
-                case 2:
-                    score +="Thirty";
-                    break;
-                case 3:
-                    score +="Forty";
-                    break;
+        int tempScore = this.m_score1;
+        StringBuilder score = new StringBuilder();
+        buildScoreDependOnPoints(score, tempScore);
+        return score.toString();
+    }
+
+    private void buildScoreDependOnPoints(StringBuilder score, int tempScore) {
+        for (int i = 1; i < ADVANTAGE_THRESHOLD; i++) {
+            if (i != 1) {
+                score.append("-");
+                tempScore = this.m_score2;
             }
+            appendToScore(score, tempScore);
         }
-        return score;
+    }
+
+    private static void appendToScore(StringBuilder score, int tempScore) {
+        score.append(
+                switch (tempScore) {
+                    case 0 -> "Love";
+                    case 1 -> "Fifteen";
+                    case 2 -> "Thirty";
+                    case 3 -> "Forty";
+                    default -> "";
+                }
+        );
     }
 
     private String determineScoreAbove() {
