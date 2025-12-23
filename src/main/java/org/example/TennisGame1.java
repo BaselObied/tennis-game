@@ -64,13 +64,13 @@ public class TennisGame1 implements TennisGame {
     }
 
     private String determineScoreAbove() {
-        String score;
-        int minusResult = m_score1-m_score2;
-        if (minusResult==1) score ="Advantage player1";
-        else if (minusResult ==-1) score ="Advantage player2";
-        else if (minusResult>=2) score = "Win for player1";
-        else score ="Win for player2";
-        return score;
+        Integer minusResult = m_score1-m_score2;
+        return switch (minusResult) {
+            case 1 -> "Advantage player1";
+            case -1 -> "Advantage player2";
+            case Integer result when result >= 2-> "Win for player1";
+            default -> "Win for player2";
+        };
     }
 
     private String determineDrawScore() {
