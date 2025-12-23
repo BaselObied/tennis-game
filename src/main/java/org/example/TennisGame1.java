@@ -22,11 +22,9 @@ public class TennisGame1 implements TennisGame {
 
     public String getScore() {
         String score = "";
-        int tempScore=0;
         if (isDraw())
         {
-            final int drawPoints = this.m_score1;
-            score = determineDrawScore(drawPoints);
+            score = determineDrawScore();
         }
         else if (hasAnyPointsAbove(3))
         {
@@ -34,13 +32,14 @@ public class TennisGame1 implements TennisGame {
         }
         else
         {
-            score = determineScoreBelow(score);
+            score = determineScoreBelow();
         }
         return score;
     }
 
-    private String determineScoreBelow(String score) {
+    private String determineScoreBelow() {
         int tempScore;
+        String score = "";
         for (int i = 1; i<3; i++)
         {
             if (i==1) tempScore = m_score1;
@@ -74,7 +73,8 @@ public class TennisGame1 implements TennisGame {
         return score;
     }
 
-    private String determineDrawScore(int drawPoints) {
+    private String determineDrawScore() {
+        final int drawPoints = this.m_score1;
         String score;
         switch (drawPoints)
         {
