@@ -28,7 +28,7 @@ public class TennisGame1 implements TennisGame {
             final int drawPoints = this.m_score1;
             score = determineDrawScore(drawPoints);
         }
-        else if (hasAnyScoreAbove(4))
+        else if (hasAnyPointsAbove(3))
         {
             score = determineScoreAbove();
         }
@@ -95,8 +95,8 @@ public class TennisGame1 implements TennisGame {
         return score;
     }
 
-    private boolean hasAnyScoreAbove(int score) {
-        return this.m_score1 >= score || this.m_score2 >= score;
+    private boolean hasAnyPointsAbove(int points) {
+        return this.m_score1 > points || this.m_score2 > points;
     }
 
     private boolean isDraw() {
