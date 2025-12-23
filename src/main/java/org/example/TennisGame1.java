@@ -8,6 +8,7 @@ public class TennisGame1 implements TennisGame {
     private String player1Name;
     private String player2Name;
     private final int ADVANTAGE_THRESHOLD = 3;
+    private static final String PLAYER1 = "player1";
 
     public TennisGame1(String player1Name, String player2Name) {
         this.player1Name = player1Name;
@@ -15,23 +16,20 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (playerName == "player1")
-            m_score1 += 1;
+        if (PLAYER1.equals(playerName))
+            m_score1++;
         else
-            m_score2 += 1;
+            m_score2++;
     }
 
     public String getScore() {
         String score = "";
-        if (isDraw())
-        {
+        if (isDraw()) {
             score = determineDrawScore();
-        }
-        else if (hasAnyPointsAbove(ADVANTAGE_THRESHOLD))
+        } else if (hasAnyPointsAbove(ADVANTAGE_THRESHOLD))
         {
             score = determineScoreAbove();
-        }
-        else
+        } else
         {
             score = determineScoreBelow();
         }
