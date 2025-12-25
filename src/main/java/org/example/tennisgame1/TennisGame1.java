@@ -1,6 +1,8 @@
 package org.example.tennisgame1;
 
 
+import org.example.TennisGame;
+
 public class TennisGame1 implements TennisGame {
 
     protected final static int ADVANTAGE_THRESHOLD = 3;

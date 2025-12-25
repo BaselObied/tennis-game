@@ -1,4 +1,4 @@
-package org.example.tennisgame1;
+package org.example;
 
 public interface TennisGame {
     void wonPoint(String playerName);
