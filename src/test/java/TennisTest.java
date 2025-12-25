@@ -1,5 +1,6 @@
-import org.example.tennisgame1.TennisGame;
+import org.example.TennisGame;
 import org.example.tennisgame1.TennisGame1;
+import org.example.tennisgame2.TennisGame2;
 import org.junit.jupiter.params.ParameterizedTest;
 
 import java.util.stream.Stream;
@@ -67,6 +68,13 @@ public class TennisTest {
     @MethodSource("getAllScores")
     public void checkAllScoresTennisGame1(int player1Points, int player2Points, String expectedScore) {
         TennisGame game = new TennisGame1("player1", "player2");
+        checkAllScores(player1Points, player2Points, expectedScore, game);
+    }
+
+    @ParameterizedTest
+    @MethodSource("getAllScores")
+    public void checkAllScoresTennisGame2(int player1Points, int player2Points, String expectedScore) {
+        TennisGame game = new TennisGame2("player1", "player2");
         checkAllScores(player1Points, player2Points, expectedScore, game);
     }
 }
