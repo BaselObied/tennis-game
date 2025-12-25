@@ -25,55 +25,25 @@ public class TennisGame2 implements TennisGame
         } else if(P1point > P2point) {
             score = resolveScoreForP1PointsIsHigher();
         } else{
-            score = resolveScoreForP2PointsIsHigher(score);
+            score = resolveScoreForP2PointsIsHigher();
         }
 
         return score;
     }
 
-    private String resolveScoreForP2PointsIsHigher(String score) {
-        if (P2point > 0 && P1point==0)
+    private String resolveScoreForP2PointsIsHigher() {
+        if (P2point < 4)
         {
-            if (P2point==1)
-                P2res = "Fifteen";
-            if (P2point==2)
-                P2res = "Thirty";
-            if (P2point==3)
-                P2res = "Forty";
-
-            P1res = "Love";
-            score = P1res + "-" + P2res;
+            return getScoreLessThanAdvantageThreshold(P2point, P1point, "player2");
+        } else {
+            return getScoreMoreThanAdvantageThreshold(P2point, P1point, "player2");
         }
-
-        if (P2point>P1point && P2point < 4)
-        {
-            if (P2point==2)
-                P2res="Thirty";
-            if (P2point==3)
-                P2res="Forty";
-            if (P1point==1)
-                P1res="Fifteen";
-            if (P1point==2)
-                P1res="Thirty";
-            score = P1res + "-" + P2res;
-        }
-
-        if (P2point > P1point && P1point > 2)
-        {
-            score = "Advantage player2";
-        }
-
-        if (P2point>3 && P1point>=0 && (P2point-P1point)>1)
-        {
-            score = "Win for player2";
-        }
-        return score;
     }
 
     private String resolveScoreForP1PointsIsHigher() {
         if (P1point < 4)
         {
-            return getScoreLessThanAdvantageThreshold(P1point, P2point);
+            return getScoreLessThanAdvantageThreshold(P1point, P2point, "player1");
         } else {
             return getScoreMoreThanAdvantageThreshold(P1point, P2point, "player1");
         }
@@ -86,22 +56,28 @@ public class TennisGame2 implements TennisGame
         return "Advantage " + playerName;
     }
 
-    private String getScoreLessThanAdvantageThreshold(int highPoint, int lowPoint) {
-        P1res = switch (highPoint) {
+    private String getScoreLessThanAdvantageThreshold(int highPoint, int lowPoint, String highPlayerName) {
+        String high = switch (highPoint) {
             case 1 -> "Fifteen";
             case 2 -> "Thirty";
             case 3 -> "Forty";
             default -> "";
         };
-        P2res = switch (lowPoint) {
+
+        String low = switch (lowPoint) {
             case 0 -> "Love";
             case 1 -> "Fifteen";
             case 2 -> "Thirty";
             default -> "";
         };
 
-        return P1res + "-" + P2res;
+        if (highPlayerName.equals("player1")) {
+            return high + "-" + low;
+        } else {
+            return low + "-" + high;
+        }
     }
+
 
     private static String resolveDrawScore(int drawPoints) {
         return switch (drawPoints) {
