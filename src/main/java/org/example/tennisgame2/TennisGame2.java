@@ -4,13 +4,13 @@ import org.example.TennisGame;
 
 public class TennisGame2 implements TennisGame
 {
-    public int P1point = 0;
-    public int P2point = 0;
+    private static final int ADVANTAGE_THRESHOLD = 4;
 
-    public String P1res = "";
-    public String P2res = "";
-    private String player1Name;
-    private String player2Name;
+    public int player1Points = 0;
+    public int player2Points = 0;
+
+    private final String player1Name;
+    private final String player2Name;
 
     public TennisGame2(String player1Name, String player2Name) {
         this.player1Name = player1Name;
@@ -18,34 +18,30 @@ public class TennisGame2 implements TennisGame
     }
 
     public String getScore(){
-        String score = "";
         if (isDraw()) {
-            int drawPoints = P1point;
-            return resolveDrawScore(drawPoints);
-        } else if(P1point > P2point) {
-            score = resolveScoreForP1PointsIsHigher();
+            return resolveDrawScore();
+        } else if(player1Points > player2Points) {
+            return resolveScoreForP1PointsIsHigher();
         } else{
-            score = resolveScoreForP2PointsIsHigher();
+            return resolveScoreForP2PointsIsHigher();
         }
-
-        return score;
     }
 
     private String resolveScoreForP2PointsIsHigher() {
-        if (P2point < 4)
+        if (player2Points < ADVANTAGE_THRESHOLD)
         {
-            return getScoreLessThanAdvantageThreshold(P2point, P1point, "player2");
+            return getScoreLessThanAdvantageThreshold(player2Points, player1Points, player2Name);
         } else {
-            return getScoreMoreThanAdvantageThreshold(P2point, P1point, "player2");
+            return getScoreMoreThanAdvantageThreshold(player2Points, player1Points, player2Name);
         }
     }
 
     private String resolveScoreForP1PointsIsHigher() {
-        if (P1point < 4)
+        if (player1Points < ADVANTAGE_THRESHOLD)
         {
-            return getScoreLessThanAdvantageThreshold(P1point, P2point, "player1");
+            return getScoreLessThanAdvantageThreshold(player1Points, player2Points, player1Name);
         } else {
-            return getScoreMoreThanAdvantageThreshold(P1point, P2point, "player1");
+            return getScoreMoreThanAdvantageThreshold(player1Points, player2Points, player1Name);
         }
     }
 
@@ -79,7 +75,8 @@ public class TennisGame2 implements TennisGame
     }
 
 
-    private static String resolveDrawScore(int drawPoints) {
+    private String resolveDrawScore() {
+        int drawPoints = this.player1Points;
         return switch (drawPoints) {
             case 0 -> "Love-All";
             case 1 -> "Fifteen-All";
@@ -89,19 +86,19 @@ public class TennisGame2 implements TennisGame
     }
 
     private boolean isDraw() {
-        return P1point == P2point;
+        return player1Points == player2Points;
     }
 
     public void P1Score(){
-        P1point++;
+        player1Points++;
     }
 
     public void P2Score(){
-        P2point++;
+        player2Points++;
     }
 
     public void wonPoint(String player) {
-        if (player == "player1")
+        if (player1Name.equals(player))
             P1Score();
         else
             P2Score();
