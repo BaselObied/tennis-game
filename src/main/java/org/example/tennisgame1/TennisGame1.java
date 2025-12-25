@@ -1,4 +1,4 @@
-package org.example;
+package org.example.tennisgame1;
 
 
 public class TennisGame1 implements TennisGame {

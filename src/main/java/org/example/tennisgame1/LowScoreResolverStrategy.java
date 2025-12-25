@@ -1,6 +1,6 @@
-package org.example;
+package org.example.tennisgame1;
 
-import static org.example.TennisGame1.ADVANTAGE_THRESHOLD;
+import static org.example.tennisgame1.TennisGame1.ADVANTAGE_THRESHOLD;
 
 public class LowScoreResolverStrategy implements ScoreResolver {
     private final int player1Points;

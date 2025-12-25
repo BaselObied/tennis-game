@@ -1,4 +1,4 @@
-package org.example;
+package org.example.tennisgame1;
 
 public class HighScoreResolverStrategy implements ScoreResolver {
     private final int player1Points;

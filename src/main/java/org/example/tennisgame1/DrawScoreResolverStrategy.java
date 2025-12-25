@@ -1,4 +1,4 @@
-package org.example;
+package org.example.tennisgame1;
 
 public class DrawScoreResolverStrategy implements ScoreResolver {
     private final int drawPoints;

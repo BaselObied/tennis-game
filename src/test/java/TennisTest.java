@@ -1,5 +1,5 @@
-import org.example.TennisGame;
-import org.example.TennisGame1;
+import org.example.tennisgame1.TennisGame;
+import org.example.tennisgame1.TennisGame1;
 import org.junit.jupiter.params.ParameterizedTest;
 
 import java.util.stream.Stream;
