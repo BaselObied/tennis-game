@@ -11,15 +11,17 @@ public class TennisGame2 implements TennisGame
 
     private final String player1Name;
     private final String player2Name;
+    private final ScoreResolver scoreResolver;
 
     public TennisGame2(String player1Name, String player2Name) {
         this.player1Name = player1Name;
         this.player2Name = player2Name;
+        this.scoreResolver = new ScoreResolverImpl();
     }
 
     public String getScore(){
         if (isDraw()) {
-            return resolveScoreForDraw();
+            return scoreResolver.resolveScoreForDraw(player1Points);
         } else if(player1Points > player2Points) {
             return resolveScoreForNonDraw(player1Points, player2Points, player1Name);
         } else{
