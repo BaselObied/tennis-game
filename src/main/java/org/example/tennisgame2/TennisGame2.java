@@ -71,29 +71,36 @@ public class TennisGame2 implements TennisGame
     }
 
     private String resolveScoreForP1PointsIsHigher() {
-
         if (P1point < 4)
         {
-            P1res = switch (P1point) {
-                case 1 -> "Fifteen";
-                case 2 -> "Thirty";
-                case 3 -> "Forty";
-                default -> "";
-            };
-            P2res = switch (P2point) {
-                case 0 -> "Love";
-                case 1 -> "Fifteen";
-                case 2 -> "Thirty";
-                default -> "";
-            };
-
-            return P1res + "-" + P2res;
+            return getScoreLessThanAdvantageThreshold(P1point, P2point);
         } else {
-            if (P1point - P2point > 1) {
-                return "Win for player1";
-            }
-            return "Advantage player1";
+            return getScoreMoreThanAdvantageThreshold(P1point, P2point, "player1");
         }
+    }
+
+    private String getScoreMoreThanAdvantageThreshold(int highPoint, int lowPoint, String playerName) {
+        if (highPoint - lowPoint > 1) {
+            return "Win for " + playerName;
+        }
+        return "Advantage " + playerName;
+    }
+
+    private String getScoreLessThanAdvantageThreshold(int highPoint, int lowPoint) {
+        P1res = switch (highPoint) {
+            case 1 -> "Fifteen";
+            case 2 -> "Thirty";
+            case 3 -> "Forty";
+            default -> "";
+        };
+        P2res = switch (lowPoint) {
+            case 0 -> "Love";
+            case 1 -> "Fifteen";
+            case 2 -> "Thirty";
+            default -> "";
+        };
+
+        return P1res + "-" + P2res;
     }
 
     private static String resolveDrawScore(int drawPoints) {
