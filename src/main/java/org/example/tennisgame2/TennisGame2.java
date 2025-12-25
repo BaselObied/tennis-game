@@ -19,30 +19,22 @@ public class TennisGame2 implements TennisGame
 
     public String getScore(){
         if (isDraw()) {
-            return resolveDrawScore();
+            return resolveScoreForDraw();
         } else if(player1Points > player2Points) {
-            return resolveScoreForP1PointsIsHigher();
+            return resolveScoreForNonDraw(player1Points, player2Points, player1Name);
         } else{
-            return resolveScoreForP2PointsIsHigher();
+            return resolveScoreForNonDraw(player2Points, player1Points, player2Name);
         }
     }
 
-    private String resolveScoreForP2PointsIsHigher() {
-        if (player2Points < ADVANTAGE_THRESHOLD)
+    private String resolveScoreForNonDraw(int highPoint, int lowPoint, String highPlayerName) {
+        if (highPoint < ADVANTAGE_THRESHOLD)
         {
-            return getScoreLessThanAdvantageThreshold(player2Points, player1Points, player2Name);
+            return getScoreLessThanAdvantageThreshold(highPoint, lowPoint, highPlayerName);
         } else {
-            return getScoreMoreThanAdvantageThreshold(player2Points, player1Points, player2Name);
+            return getScoreMoreThanAdvantageThreshold(highPoint, lowPoint, highPlayerName);
         }
-    }
 
-    private String resolveScoreForP1PointsIsHigher() {
-        if (player1Points < ADVANTAGE_THRESHOLD)
-        {
-            return getScoreLessThanAdvantageThreshold(player1Points, player2Points, player1Name);
-        } else {
-            return getScoreMoreThanAdvantageThreshold(player1Points, player2Points, player1Name);
-        }
     }
 
     private String getScoreMoreThanAdvantageThreshold(int highPoint, int lowPoint, String playerName) {
@@ -67,7 +59,7 @@ public class TennisGame2 implements TennisGame
             default -> "";
         };
 
-        if (highPlayerName.equals("player1")) {
+        if (highPlayerName.equals(player1Name)) {
             return high + "-" + low;
         } else {
             return low + "-" + high;
@@ -75,7 +67,7 @@ public class TennisGame2 implements TennisGame
     }
 
 
-    private String resolveDrawScore() {
+    private String resolveScoreForDraw() {
         int drawPoints = this.player1Points;
         return switch (drawPoints) {
             case 0 -> "Love-All";
